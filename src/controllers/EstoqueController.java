@@ -5,8 +5,12 @@ import java.util.UUID;
 
 import javax.swing.JOptionPane;
 
+import abstractions.EstoqueRepositoryAbstract;
 import entities.Estoque;
 import entities.Produto;
+import repositories.EstoqueRepositoryJsonImpl;
+import repositories.EstoqueRepositoryTxtImpl;
+import repositories.EstoqueRepositoryXmlImpl;
 
 public class EstoqueController {
 	public void cadastrarEstoque() {
@@ -25,6 +29,24 @@ public class EstoqueController {
 			}
 			estoque.setProdutos(lista);
 		}
+		
+		EstoqueRepositoryAbstract estoqueRepositoryAbstract = null;
+		
+		var formato = JOptionPane.showInputDialog("Escolha entre (TXT) ou (XML) ou (JSON): ");
+		switch(formato) {
+		case "TXT":
+			estoqueRepositoryAbstract = new EstoqueRepositoryTxtImpl();
+			break;
+		case "JSON":
+			estoqueRepositoryAbstract = new EstoqueRepositoryJsonImpl();
+			break;
+		case "XML":
+			estoqueRepositoryAbstract = new EstoqueRepositoryXmlImpl();
+			break;
+		}
+		
+		estoqueRepositoryAbstract.exportarDados(estoque);
+		
 	}
 	
 	//método para ler e retornar os dados de um estoque

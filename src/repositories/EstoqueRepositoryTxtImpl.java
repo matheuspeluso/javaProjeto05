@@ -11,6 +11,7 @@ public class EstoqueRepositoryTxtImpl extends EstoqueRepositoryAbstract{
 	public void exportarDados(Estoque estoque) {
 		try {
 			var diretorio = "c:\\arquivos_txt";
+			criarDiretorio(diretorio);
 			var printWriter = new PrintWriter(diretorio + "\\estoque_"+estoque.getId()+".txt");
 			
 			printWriter.write("\n"+ estoque.getId());
